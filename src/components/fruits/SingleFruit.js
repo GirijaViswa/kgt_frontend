@@ -9,22 +9,59 @@ class SingleFruit extends React.Component
 
     componentDidMount()
     {
+// to fetch the nutritional facts of this fruit    -- part - 1  
         var headers = {method:'GET',redirect:'follow'}
         var url="https://cors-anywhere.herokuapp.com/http://tropicalfruitandveg.com/api/tfvjsonapi.php?tfvitem="+this.props.fruit.tfvname
-        console.log(url)
         fetch(url, headers)
         .then(resp => resp.json())
         .then(data => this.setState({info:data.results}))
+        .catch(error => console.log('error', error));
+
+// to fetch the nutritional facts of this fruit   --part - 2
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var ingr = "1 cup "+this.props.fruit.name
+        var raw = JSON.stringify({"title":"Fresh","prep":"1.","yield":"About 1 servings","ingr":[ingr]});
+        console.log(raw)
+        var requestOptions = { method: 'POST', headers: myHeaders, body: raw, redirect: 'follow' };
+
+        fetch("https://api.edamam.com/api/nutrition-details?app_id=0d480d4b&app_key=6428fff964ea8c0ed610bca08120c4fe", requestOptions)
+        .then(response => response.json())
+        .then(result => this.setState(prevState =>({...prevState,nutritional_facts:result})))
+        .catch(error => console.log('error', error));
+
+// to fetch the videos of this fruit
+        var recipe_videos = [];
+        var garden_videos = [];
+        fetch(`http://localhost:3000/products/${this.props.fruit.name}/videos`)
+        .then(resp => resp.json())
+        .then(data => {
+            data.videos.map(video => {
+                if (video.video_type === "Recipe")
+                {
+                    recipe_videos = [...recipe_videos,video]
+                }
+                else
+                {
+                    garden_videos = [...garden_videos,video]
+                }
+            })
+            this.setState(prevState => ({...prevState,fruit_recipe:recipe_videos,fruit_garden:garden_videos}))
+        })
+        .catch(error => console.log('error', error));
     }
 
+//to show the description of the fruit
     handleDescription = () => (
         this.setState(prevState => ({...prevState,desc:!prevState.desc,fruit_grow:false,fruit_taste:false}))
     );
 
+//to show the recipes available for the fruit
     handleTaste = () => (
         this.setState(prevState => ({...prevState,fruit_taste:!prevState.fruit_taste,desc:false,fruit_grow:false}))
     );
-
+    
+//to show the gardening videos available for the fruit
     handleGrow = () => (
         this.setState(prevState => ({...prevState,fruit_grow:!prevState.fruit_grow,fruit_taste:false,desc:false}))
     );
@@ -44,9 +81,9 @@ class SingleFruit extends React.Component
                 {this.state.fruit_grow || this.state.fruit_taste ?
                 <div>
                     {this.state.fruit_taste ?
-                    <SingleFruitTaste />
+                    <SingleFruitTaste fruit_recipe={this.state.fruit_recipe}/>
                     :
-                    <SingleFruitGrow/>
+                    <SingleFruitGrow fruit_garden={this.state.fruit_garden}/>
                     }
                 </div>
                 : null}
@@ -74,7 +111,7 @@ class SingleFruit extends React.Component
                 </tboby></table></div>
                  : null}</div>
                  {/*Back Button */}
-                <center><button onClick={this.props.back}>Back</button></center>
+                 <br/><br/><center><button onClick={this.props.back}>Check out other fruits here!</button></center><br/><br/>
                 </div> 
         )
     }

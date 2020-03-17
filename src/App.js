@@ -1,8 +1,8 @@
 import React from 'react';
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
-import Fruit from './components/fruits/Fruits'; 
-import Vegetable from './components/vegetables/Vegetable'
-import Home from './components/home/Home'
+import Fruit from './components/Fruits/Fruits'; 
+import Vegetable from './components/Vegetables/Vegetable'
+import Home from './components/Home/Home'
 // import center_pic from './images/center_pic.jpg';
 import './App.css';
 
@@ -19,7 +19,7 @@ function App() {
       </div>
      
       <Switch>
-        <Route path="/fruits"><Fruit/></Route>
+        <Route path="/fruits"><Fruit/></Route> 
         <Route path="/vegetables"><Vegetable/></Route>
         <Route path="/"><Home/></Route>
       </Switch>
