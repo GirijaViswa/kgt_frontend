@@ -1,0 +1,56 @@
+img{
+  height: 300px;
+  width: 100%;
+}
+.Trend{
+  padding-left: 40px;
+  padding-top: 50px;
+  font-family: Libre Franklin;
+  color: #69841F;
+  font-size: 36px;
+  text-align: center;
+  padding-bottom: 20px;
+}
+.Recipe{
+  padding-top: 50px;  
+  padding-left: 40px;
+  font-family: Libre Franklin;
+  color: #69841F;
+  font-size: 36px;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.TrendRow ul{
+  list-style: none;
+  display: flex;
+}
+
+.Trend_item{
+  padding: 0 1.5rem;
+}
+
+.TrendRow img{
+  height: 200px;
+  width: 200px;
+}
+
+.TrendsNames{
+  font-family: Libre Franklin;
+  font-size: 24px;
+  color: #F0681E;
+}
+
+.TrendsNames li{
+  padding: 0 5rem;
+}
+
+.RecipeList ul{
+  list-style: none;
+  display: flex;
+}
+
+.RecipeList li{
+  padding: 0 1.5rem;
+  margin-left: 40px;
+}

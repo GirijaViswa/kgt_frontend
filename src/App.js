@@ -1,25 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
+import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
+import Fruit from './components/fruits/Fruits'; 
+import Vegetable from './components/vegetables/Vegetable'
+import Home from './components/home/Home'
+// import center_pic from './images/center_pic.jpg';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div><Router>
+      <div className="App">
+      <Link to="/" className="Links">Logo</Link> 
+      <Link to="/fruits" className="Links">Fruits</Link>
+      <Link to="/vegetables" className="Links">Vegetables</Link>
+      <div className="Spacer"/>
+      <Link to="/login" className="Links">Login</Link>
+      <Link to="/signup" className="Links">SignUp</Link>
+      </div>
+     
+      <Switch>
+        <Route path="/fruits"><Fruit/></Route>
+        <Route path="/vegetables"><Vegetable/></Route>
+        <Route path="/"><Home/></Route>
+      </Switch>
+      
+    </Router></div>
   );
 }
 

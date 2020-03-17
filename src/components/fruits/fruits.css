@@ -1,0 +1,26 @@
+img{
+height: 300px;
+width: 100%;
+}
+
+.Tilesgrid{
+    padding: 60px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+}
+.Tile{
+    align-items: center;
+    padding: 60px;
+}
+
+.Tile img{
+    height: 200px;
+    width: 250px;
+}
+
+.Tile:hover {
+    box-shadow: 0 8px 16px 0 black;
+  }
+  
