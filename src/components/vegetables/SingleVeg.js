@@ -1,27 +1,27 @@
 import React from 'react';
-import SingleFruitTaste from './SingleFruitTaste';
-import SingleFruitGrow from './SingleFruitGrow';
-import NutritionFact from './NutritionFacts';
-import './SingleFruit.css'
+import SingleVegTaste from './SingleVegTaste';
+import SingleVegGrow from './SingleVegGrow';
+import NutritionFact from '../Fruits/NutritionFacts.js';
+import './SingleVeg.css'
 
-class SingleFruit extends React.Component
+class SingleVeg extends React.Component
 {
-    state = {info:[],fruit_taste:false,fruit_grow:false,desc:false,fruit_nutrition:false}
+    state = {info:[],veg_taste:false,veg_grow:false,desc:false,veg_nutrition:false}
 
     componentDidMount()
     {
-// to fetch the nutritional facts of this fruit    -- part - 1  
+// to fetch the nutritional facts of this veg    -- part - 1  
         var headers = {method:'GET',redirect:'follow'}
-        var url="https://cors-anywhere.herokuapp.com/http://tropicalfruitandveg.com/api/tfvjsonapi.php?tfvitem="+this.props.fruit.tfvname
+        var url="https://cors-anywhere.herokuapp.com/http://tropicalfruitandveg.com/api/tfvjsonapi.php?tfvitem="+this.props.veg.tfvname
         fetch(url, headers)
         .then(resp => resp.json())
         .then(data => this.setState({info:data.results}))
         .catch(error => console.log('error', error));
 
-// to fetch the nutritional facts of this fruit   --part - 2
+// to fetch the nutritional facts of this veg   --part - 2
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        var ingr = "1 cup "+this.props.fruit.name
+        var ingr = "1 cup "+this.props.veg.name
         var raw = JSON.stringify({"title":"Fresh","prep":"1.","yield":"About 1 servings","ingr":[ingr]});
         console.log(raw)
         var requestOptions = { method: 'POST', headers: myHeaders, body: raw, redirect: 'follow' };
@@ -31,10 +31,10 @@ class SingleFruit extends React.Component
         .then(result => this.setState(prevState =>({...prevState,nutritional_facts:result})))
         .catch(error => console.log('error', error));
 
-// to fetch the videos of this fruit
+// to fetch the videos of this veg
         var recipe_videos = [];
         var garden_videos = [];
-        fetch(`http://localhost:3000/products/${this.props.fruit.name}/videos`)
+        fetch(`http://localhost:3000/products/${this.props.veg.name}/videos`)
         .then(resp => resp.json())
         .then(data => {
             data.videos.map(video => {
@@ -47,28 +47,28 @@ class SingleFruit extends React.Component
                     garden_videos = [...garden_videos,video]
                 }
             })
-            this.setState(prevState => ({...prevState,fruit_recipe:recipe_videos,fruit_garden:garden_videos}))
+            this.setState(prevState => ({...prevState,veg_recipe:recipe_videos,veg_garden:garden_videos}))
         })
         .catch(error => console.log('error', error));
     }
 
-//to show the description of the fruit
+//to show the description of the veg
     handleDescription = () => (
-        this.setState(prevState => ({...prevState,desc:!prevState.desc,fruit_grow:false,fruit_taste:false,fruit_nutrition:false}))
+        this.setState(prevState => ({...prevState,desc:!prevState.desc,veg_grow:false,veg_taste:false,veg_nutrition:false}))
     );
 
-//to show the recipes available for the fruit
+//to show the recipes available for the veg
     handleTaste = () => (
-        this.setState(prevState => ({...prevState,fruit_taste:!prevState.fruit_taste,desc:false,fruit_grow:false,fruit_nutrition:false}))
+        this.setState(prevState => ({...prevState,veg_taste:!prevState.veg_taste,desc:false,veg_grow:false,veg_nutrition:false}))
     );
     
-//to show the gardening videos available for the fruit
+//to show the gardening videos available for the veg
     handleGrow = () => (
-        this.setState(prevState => ({...prevState,fruit_grow:!prevState.fruit_grow,fruit_taste:false,desc:false,fruit_nutrition:false}))
+        this.setState(prevState => ({...prevState,veg_grow:!prevState.veg_grow,veg_taste:false,desc:false,veg_nutrition:false}))
     );
-//to show the nutritional facts available for the fruit
+//to show the nutritional facts available for the veg
     handleNutrition = () => {
-        return this.setState(prevState => ({...prevState,fruit_nutrition:!prevState.fruit_nutrition,fruit_taste:false,desc:false,fruit_grow:false}))
+        return this.setState(prevState => ({...prevState,veg_nutrition:!prevState.veg_nutrition,veg_taste:false,desc:false,veg_grow:false}))
     }
   
 
@@ -76,8 +76,8 @@ class SingleFruit extends React.Component
     {
         return(
             <div className="Item"> 
-                <img src={this.props.fruit.img} alt={this.props.fruit.name}/>
-                <h2>{this.props.fruit.name}</h2>
+                <img src={this.props.veg.img} alt={this.props.veg.name}/>
+                <h2>{this.props.veg.name}</h2>
                 <nav className="Item__nav">
                     <div className="Item__indiv"><a onClick={this.handleDescription}>Know more about them</a></div>
                     <div className="Item__indiv"><a onClick={this.handleNutrition}>Nutritional facts</a></div>
@@ -85,14 +85,14 @@ class SingleFruit extends React.Component
                     <div className="Item__indiv"><a onClick={this.handleGrow}>How to grow them?</a></div>
                 </nav>
 
-                {this.state.fruit_nutrition ? <NutritionFact facts={this.state.nutritional_facts}/> : null}
+                {this.state.veg_nutrition ? <NutritionFact facts={this.state.nutritional_facts}/> : null}
 
-                {this.state.fruit_grow || this.state.fruit_taste ?
+                {this.state.veg_grow || this.state.veg_taste ?
                 <div>
-                    {this.state.fruit_taste ?
-                    <SingleFruitTaste fruit_recipe={this.state.fruit_recipe}/>
+                    {this.state.veg_taste ?
+                    <SingleVegTaste veg_recipe={this.state.veg_recipe}/>
                     :
-                    <SingleFruitGrow fruit_garden={this.state.fruit_garden}/>
+                    <SingleVegGrow veg_garden={this.state.veg_garden}/>
                     }
                 </div>
                 : null}
@@ -120,10 +120,10 @@ class SingleFruit extends React.Component
                 </tboby></table></div>
                  : null}</div>
                  {/*Back Button */}
-                 <br/><br/><center><button onClick={this.props.back}>Check out other fruits here!</button></center><br/><br/>
+                 <br/><br/><center><button onClick={this.props.back}>Check out other Vegetables here!</button></center><br/><br/>
                 </div> 
         )
     }
 }
 
-export default SingleFruit
+export default SingleVeg

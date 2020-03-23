@@ -51,6 +51,10 @@ img{
 }
 
 .RecipeList li{
-  padding: 0 1.5rem;
-  margin-left: 40px;
+  margin-left: 140px;
+  padding: 0 1rem;
+}
+.Footer{
+  width: 80%;
+  height: 5%;
 }

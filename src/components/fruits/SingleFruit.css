@@ -1,6 +1,6 @@
 .Item img{
 height: 300px;
-width: 60%;
+width: 61%;
 margin-left: 280px;
 border-radius: 25px;
 }
@@ -27,17 +27,17 @@ border-radius: 25px;
 
 .Item__nav{
     margin-left: 280px;
-    width: 58%;
+    width: 60%;
     border-style: solid ;
     color: #2E5069;
     display: flex;
     align-items: center;
-    padding: 0 1rem;
+    padding: 0 0.5rem;
 }
 
 .Item__indiv a {
     text-decoration: none;
-    font-size: 25px;
+    font-size: 20px;
     padding: 0 1.6rem;
 }
 
@@ -50,16 +50,13 @@ border-radius: 25px;
 
 .Video_Lister{
     margin-left: 50px;
+    margin-top: 50px;
+    display: flex;
 }   
 
-.Video_Lister ul{
-    list-style: none;
-    display: flex;
-}
-
-.Video_Lister li{
-    padding-left: 20px;
-    padding-bottom: 20px;
+.Video_Item{
+    padding-left:10px ;
+    padding-right:10px;
 }
 
 button{
@@ -69,3 +66,34 @@ button{
     padding: 0.5rem;
     font-size: 1.5rem;
 }
+
+.heart {
+    background-color:red;
+    display: inline-block;
+    height: 30px;
+    margin: 0 10px;
+    position: relative;
+    top: 0;
+    transform: rotate(-45deg);
+    width: 30px;
+  }
+  
+  .heart:before,
+  .heart:after {
+    content: "";
+    background-color:red;
+    border-radius: 50%;
+    height: 30px;
+    position: absolute;
+    width: 30px;
+  }
+  
+  .heart:before {
+    top: -15px;
+    left: 0;
+  }
+  
+  .heart:after {
+    left: 15px;
+    top: 0;
+  }

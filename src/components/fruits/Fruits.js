@@ -11,7 +11,7 @@ class Fruits extends React.Component
     {
         fetch("http://localhost:3000/products")
         .then(resp => resp.json())
-        .then(data => this.setState(this.state.allfruits=data.products))
+        .then(data => this.setState(this.state.allfruits=data.fruits))
     }
 
     showFruit = (fruit) => 

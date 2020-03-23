@@ -3,8 +3,8 @@ import center_pic from '../images/center_pic.jpg'
 import mangoes from '../images/mangoes.jpg';
 import papaya from '../images/papaya.jpg';
 import plum from '../images/plum.jpg';
-import berry from '../images/berry.jpg'
-import cucumber from '../images/cucumber.jpg'
+import berry from '../images/berry.jpg';
+import cucumber from '../images/cucumber.jpg';
 import './home.css'
 
 function Home()
@@ -29,8 +29,8 @@ function Home()
         </div>
         <div className="Recipe">Trending Recipes</div>
         <div className="RecipeList"><ul>
-        <li><iframe width="560" height="315" src="https://www.youtube.com/embed/RPGBMkN-_Ys" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
-        <li><iframe width="560" height="315" src="https://www.youtube.com/embed/Fz7iFleQyME" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
+        <li><iframe width="460" height="315" src="https://www.youtube.com/embed/RPGBMkN-_Ys" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
+        <li><iframe width="460" height="315" src="https://www.youtube.com/embed/Fz7iFleQyME" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
         </ul></div>
     </div>
     )
