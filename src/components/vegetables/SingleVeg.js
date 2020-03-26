@@ -3,38 +3,39 @@ import SingleVegTaste from './SingleVegTaste';
 import SingleVegGrow from './SingleVegGrow';
 import NutritionFact from '../Fruits/NutritionFacts.js';
 import './SingleVeg.css'
+import {connect} from 'react-redux';
 
 class SingleVeg extends React.Component
 {
-    state = {info:[],veg_taste:false,veg_grow:false,desc:false,veg_nutrition:false}
-
+    
     componentDidMount()
     {
 // to fetch the nutritional facts of this veg    -- part - 1  
+        var veg_name = this.props.veg.active_veg.tfvname
         var headers = {method:'GET',redirect:'follow'}
-        var url="https://cors-anywhere.herokuapp.com/http://tropicalfruitandveg.com/api/tfvjsonapi.php?tfvitem="+this.props.veg.tfvname
+        var url="https://cors-anywhere.herokuapp.com/http://tropicalfruitandveg.com/api/tfvjsonapi.php?tfvitem="+veg_name
         fetch(url, headers)
         .then(resp => resp.json())
-        .then(data => this.setState({info:data.results}))
+        .then(data => this.props.dispatch({type:"VEG_INFO",info:data.results}))
         .catch(error => console.log('error', error));
 
 // to fetch the nutritional facts of this veg   --part - 2
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        var ingr = "1 cup "+this.props.veg.name
-        var raw = JSON.stringify({"title":"Fresh","prep":"1.","yield":"About 1 servings","ingr":[ingr]});
-        console.log(raw)
-        var requestOptions = { method: 'POST', headers: myHeaders, body: raw, redirect: 'follow' };
+        // var myHeaders = new Headers();
+        // myHeaders.append("Content-Type", "application/json");
+        // var ingr = "1 cup "+this.props.veg.name
+        // var raw = JSON.stringify({"title":"Fresh","prep":"1.","yield":"About 1 servings","ingr":[ingr]});
+        // console.log(raw)
+        // var requestOptions = { method: 'POST', headers: myHeaders, body: raw, redirect: 'follow' };
 
-        fetch("https://api.edamam.com/api/nutrition-details?app_id=0d480d4b&app_key=6428fff964ea8c0ed610bca08120c4fe", requestOptions)
-        .then(response => response.json())
-        .then(result => this.setState(prevState =>({...prevState,nutritional_facts:result})))
-        .catch(error => console.log('error', error));
+        // fetch("https://api.edamam.com/api/nutrition-details?app_id=0d480d4b&app_key=6428fff964ea8c0ed610bca08120c4fe", requestOptions)
+        // .then(response => response.json())
+        // .then(result => this.props.dispatch({type:"VEG_NUTRITION",nutritional_facts:result}))
+        // .catch(error => console.log('error', error));
 
 // to fetch the videos of this veg
         var recipe_videos = [];
         var garden_videos = [];
-        fetch(`http://localhost:3000/products/${this.props.veg.name}/videos`)
+        fetch(`http://localhost:3000/products/${this.props.veg.active_veg.name}/videos`)
         .then(resp => resp.json())
         .then(data => {
             data.videos.map(video => {
@@ -47,37 +48,40 @@ class SingleVeg extends React.Component
                     garden_videos = [...garden_videos,video]
                 }
             })
-            this.setState(prevState => ({...prevState,veg_recipe:recipe_videos,veg_garden:garden_videos}))
+            this.props.dispatch({type:"VEGS_VIDEOS",veg_recipe:recipe_videos,veg_garden:garden_videos})
         })
         .catch(error => console.log('error', error));
     }
 
 //to show the description of the veg
     handleDescription = () => (
-        this.setState(prevState => ({...prevState,desc:!prevState.desc,veg_grow:false,veg_taste:false,veg_nutrition:false}))
+        this.props.dispatch({type:"SHOW_VEG_DESC"})
     );
 
 //to show the recipes available for the veg
     handleTaste = () => (
-        this.setState(prevState => ({...prevState,veg_taste:!prevState.veg_taste,desc:false,veg_grow:false,veg_nutrition:false}))
+        this.props.dispatch({type:"SHOW_VEG_TASTE"})
     );
     
 //to show the gardening videos available for the veg
     handleGrow = () => (
-        this.setState(prevState => ({...prevState,veg_grow:!prevState.veg_grow,veg_taste:false,desc:false,veg_nutrition:false}))
+        this.props.dispatch({type:"SHOW_VEG_GROW"})
     );
 //to show the nutritional facts available for the veg
     handleNutrition = () => {
-        return this.setState(prevState => ({...prevState,veg_nutrition:!prevState.veg_nutrition,veg_taste:false,desc:false,veg_grow:false}))
+        return this.props.dispatch({type:"SHOW_VEG_NUTRITION"})
     }
   
 
     render()
-    {
+    {   
+        const veg = this.props.veg.active_veg
+        const veg_info = this.props.veg.single_veg.info
+        
         return(
             <div className="Item"> 
-                <img src={this.props.veg.img} alt={this.props.veg.name}/>
-                <h2>{this.props.veg.name}</h2>
+                <img src={veg.img} alt={veg.name}/>
+                <h2>{veg.name}</h2>
                 <nav className="Item__nav">
                     <div className="Item__indiv"><a onClick={this.handleDescription}>Know more about them</a></div>
                     <div className="Item__indiv"><a onClick={this.handleNutrition}>Nutritional facts</a></div>
@@ -85,45 +89,49 @@ class SingleVeg extends React.Component
                     <div className="Item__indiv"><a onClick={this.handleGrow}>How to grow them?</a></div>
                 </nav>
 
-                {this.state.veg_nutrition ? <NutritionFact facts={this.state.nutritional_facts}/> : null}
-
-                {this.state.veg_grow || this.state.veg_taste ?
+                {this.props.veg.single_veg.veg_nutrition ? <NutritionFact /> : null}
+                {this.props.veg.single_veg.veg_grow || this.props.veg.single_veg.veg_taste ?
                 <div>
-                    {this.state.veg_taste ?
-                    <SingleVegTaste veg_recipe={this.state.veg_recipe}/>
+                    {this.props.veg.single_veg.veg_taste ?
+                    <SingleVegTaste />
                     :
-                    <SingleVegGrow veg_garden={this.state.veg_garden}/>
-                    }
+                    <SingleVegGrow />
+                }
                 </div>
                 : null}
 
                 {/*Place them under the know more */}
                 <div>
-                {this.state.info && this.state.info[0] && this.state.desc ? 
+                {this.props.veg.single_veg.info && this.props.veg.single_veg.info[0] && this.props.veg.single_veg.desc ? 
+
                 <div> <table className="Tcontents"><tboby>
                 <tr><td style={{color: "#69841F",fontWeight:"italic",fontSize:"30px"}}>Also known as </td></tr>
-                <tr><td><p>{this.state.info[0].othname}</p></td></tr><tr></tr>
+                <tr><td><p>{veg_info[0].othname}</p></td></tr><tr></tr>
                 <tr><td style={{color: "#69841F",fontWeight:"italic",fontSize:"30px"}}>Botanical Name</td></tr>
-                <tr><td><p>{this.state.info[0].botname}</p></td></tr><tr></tr>
+                <tr><td><p>{veg_info[0].botname}</p></td></tr><tr></tr>
                 <tr><td style={{color: "#69841F",fontWeight:"italic",fontSize:"30px"}}>Description</td></tr>
-                <tr><td><p>{this.state.info[0].description}</p></td></tr><tr></tr>
+                <tr><td><p>{veg_info[0].description}</p></td></tr><tr></tr>
                 <tr><td style={{color: "#69841F",fontWeight:"italic",fontSize:"30px"}}>Climate</td></tr>
-                <tr><td><p>{this.state.info[0].climate}</p></td></tr><tr></tr>
+                <tr><td><p>{veg_info[0].climate}</p></td></tr><tr></tr>
                 <tr><td style={{color: "#69841F",fontWeight:"italic",fontSize:"30px"}}>Soil</td></tr>
-                <tr><td><p>{this.state.info[0].soil}</p></td></tr><tr></tr>
+                <tr><td><p>{veg_info[0].soil}</p></td></tr><tr></tr>
                 <tr><td style={{color: "#69841F",fontWeight:"italic",fontSize:"30px"}}>Propagation</td></tr>
-                <tr><td><p>{this.state.info[0].propagation}</p></td></tr><tr></tr>
-                {this.state.info[0].health ? 
+                <tr><td><p>{veg_info[0].propagation}</p></td></tr><tr></tr>
+                {veg_info[0].health ? 
                     <tr><tr><td style={{color: "#69841F",fontWeight:"italic",fontSize:"30px"}}>Health benefits </td></tr>   
-                    <tr><td><p>{this.state.info[0].health}</p></td></tr></tr>
+                    <tr><td><p>{veg_info[0].health}</p></td></tr></tr>
                 : null }
                 </tboby></table></div>
                  : null}</div>
                  {/*Back Button */}
-                 <br/><br/><center><button onClick={this.props.back}>Check out other Vegetables here!</button></center><br/><br/>
+                 <br/><br/><center><button onClick={()=>{this.props.dispatch({type:"BACK_TO_ALL_VEGS"})}}>Check out other Vegetables here!</button></center><br/><br/>
                 </div> 
         )
     }
 }
 
-export default SingleVeg
+const mapStatetoProps = (state) =>(
+    {veg:state.vegs}
+);
+
+export default connect(mapStatetoProps)(SingleVeg);

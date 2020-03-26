@@ -1,5 +1,6 @@
 import React from 'react'
 import './Login.css';
+import {connect} from 'react-redux';
 
 const handleSubmit = (e,props) => {
     e.preventDefault();
@@ -14,18 +15,11 @@ const handleSubmit = (e,props) => {
         {
             localStorage.setItem('token',user.token)
             localStorage.setItem('user_id',user.id)
+            props.dispatch({type:"LOGIN",token:user.token})
             console.log(props)
-            props.handleLogin()
+            // props.handleLogin()
             // props.history.push('/')
-        }
-        console.log(user)}) 
-        console.log(props)
-
-    if (localStorage.getItem('token'))
-    {
-        debugger
-        // props.handleLogin
-    }
+        }})
 }
 
 const Login = (props) => (
@@ -43,4 +37,8 @@ const Login = (props) => (
     </div>
 );
 
-export default Login
+const mapStatetoProps = (state) => {
+    return {user:state.user}
+}
+
+export default connect(mapStatetoProps)(Login);

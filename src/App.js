@@ -9,18 +9,14 @@ import MyProfile from './components/MyProfile/MyProfile';
 import MyCollection from './components/MyCollection/MyCollection';
 import garden from './components/images/g2.jpg';
 import './App.css';
+import {connect} from 'react-redux';
 
-function App() {
+function App(props) {
 
-  const {state,setState} = useState(false);
+  // const {state,setState} = useState(false);
 
-  console.log(state)
-  console.log(setState)
-
-  const handleLogin = () => ( 
-    console.log(setState)
-    // setState(!state)
-  );
+  // console.log(state)
+  // console.log(setState)
 
   return (
     <div><Router>
@@ -29,7 +25,7 @@ function App() {
       <Link to="/fruits" className="Links">Fruits</Link>
       <Link to="/vegetables" className="Links">Vegetables</Link>
       <div className="Spacer"/>
-      {localStorage.getItem('token') ? 
+      {localStorage.getItem('token') || props.user.loggenIn ? 
       <div>
         <Link to="/mycollection" className="Links">My Collections</Link>
         <Link to="/myprofile" className="Links">My Profile</Link></div>
@@ -47,7 +43,7 @@ function App() {
       <Switch>
         <Route exact path="/fruits" component={Fruit}/>
         <Route exact path="/vegetables" component={Vegetable} />
-        <Route exact path="/login"><Login handleLogin={handleLogin} /></Route>
+        <Route exact path="/login"><Login /></Route>
         <Route exact path="/signup" component={SignUp}/>
         <Route exact path="/mycollection" component={MyCollection}/>
         <Route exact path="/myprofile" component={MyProfile}/>
@@ -60,4 +56,8 @@ function App() {
   );
 }
 
-export default App;
+const mapStatetoProps = (state) => {
+  return {user:state.user}
+}
+
+export default connect(mapStatetoProps)(App);

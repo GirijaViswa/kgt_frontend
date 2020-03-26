@@ -1,0 +1,13 @@
+button{
+    cursor: pointer;
+    color: white;
+    background-color:  #69841F;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.TContents td{
+    color: "#69841F";
+    font-weight: italic;
+    font-Size:"20px"
+}
