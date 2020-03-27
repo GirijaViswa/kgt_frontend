@@ -33,7 +33,8 @@ class SingleFruit extends React.Component
         // console.log(raw)
         // var requestOptions = { method: 'POST', headers: myHeaders, body: raw, redirect: 'follow' };
 
-        // fetch("https://api.edamam.com/api/nutrition-details?app_id=0d480d4b&app_key=6428fff964ea8c0ed610bca08120c4fe", requestOptions)
+        // fetch("https://api.edamam.com/api/nutrition-details?app_id=a4cd23d2&app_key=5bb8fd71794f47b4da95bab16d9d46f7", requestOptions)
+        // // fetch("https://api.edamam.com/api/nutrition-details?app_id=0d480d4b&app_key=6428fff964ea8c0ed610bca08120c4fe", requestOptions)
         // .then(response => response.json())
         // // .then(result => this.setState(prevState =>({...prevState,nutritional_facts:result})))
         // .then(result => this.props.dispatch({type:"FRUIT_NUTRITION",nutritional_facts:result}))
@@ -97,12 +98,12 @@ class SingleFruit extends React.Component
                 <h2>{this.props.fruit.name}</h2> */}
                 <img src={fruit.img} alt={fruit.name}/>
                 <h2>{fruit.name}</h2>
-                <nav className="Item__nav">
+                <center><nav className="Item__nav">
                     <div className="Item__indiv"><a onClick={this.handleDescription}>Know more about them</a></div>
                     <div className="Item__indiv"><a onClick={this.handleNutrition}>Nutritional facts</a></div>
                     <div className="Item__indiv"><a onClick={this.handleTaste}>How to use them?</a></div>
                     <div className="Item__indiv"><a onClick={this.handleGrow}>How to grow them?</a></div>
-                </nav>
+                </nav></center>
 
                 
                 {this.props.fruit.single_fruit.fruit_nutrition ? <NutritionFact /> : null}

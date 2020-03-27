@@ -1,0 +1,33 @@
+.List ul{
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-bottom: 20px;
+}
+
+.List li{
+    padding: 0 auto;
+    padding-bottom: 20px;
+}
+
+.List{
+    padding-bottom: 100px;
+    font-family: Libre Franklin;
+    color: #69841F;
+    font-size: 24px;
+
+}
+
+.List h3{
+    font-family: Libre Franklin;
+    color: #F0681E;
+    font-size: 24px;
+
+}
+
+.List button{
+    max-width: 60%;
+    background-color: #2E5069;
+    font-size: 18px;
+    cursor: pointer;
+}

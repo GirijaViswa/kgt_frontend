@@ -1,5 +1,6 @@
 import React from 'react'
 import './SignUp.css';
+import {connect} from 'react-redux';
 
 const handleSubmit = (e,props) => {
     e.preventDefault();
@@ -10,11 +11,12 @@ const handleSubmit = (e,props) => {
     .then(user => { 
         localStorage.setItem('token',user.token)
         localStorage.setItem('user_id',user.id)
-        // props.history.push('/')
+        props.dispatch({type:"LOGIN",token:user.token})
+        props.history.push('/');
     })
     .catch(error => alert(error))
     console.log("fetch complete")
-}
+}   
 
 
 const SignUp = (props) => (
@@ -29,8 +31,12 @@ const SignUp = (props) => (
             <h4><a onClick="">Already member</a></h4>
             <hr></hr>
             <h4><a onClick="">Continue as Guest</a></h4>
-        </form>
+        </form><br/>
     </div>
 );
 
-export default SignUp
+const mapStatetoProps = (state) =>{
+    return {user:state.user}
+}
+
+export default connect(mapStatetoProps)(SignUp);

@@ -78,9 +78,8 @@ class MyCollection extends React.Component
     render()
     {
         return(
-            <div>
-                {console.log('Starting Render',this.props.user.myvideos) }
-                Your collection 
+            <div className="List">
+                <center><h3>Your Amazing Collections</h3></center>
                 {this.props.user.myvideos ? 
                 // {this.state.myVideos ? 
                 <div> <ul>
@@ -90,15 +89,16 @@ class MyCollection extends React.Component
                 {this.props.user.myvideos.map(video => {
                         console.log('video',video)
                     return <div>{video.name} <br/><br/>
-                    <iframe width="400" height="300" src={video.url} alt={video.name} frameborder="0"></iframe><br/><br/>
-                    <button onClick={()=>this.addToTry(video)}>Try this! </button><br/><br/>
-                    <button onClick={()=>this.handleDelete(video)}>Remove from my collection</button><br/><br/>
+                   <li> <iframe width="400" height="300" src={video.url} alt={video.name} frameborder="0"></iframe></li>
+                   <li> <button onClick={()=>this.addToTry(video)}>Try this! </button>
+                   <button onClick={()=>this.handleDelete(video)}>Remove from my collection</button></li>
                 </div>
                 }
                 
                                 
                 )}</ul></div>
                 : null} 
+                
             </div>
         )
     }

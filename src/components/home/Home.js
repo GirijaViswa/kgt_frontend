@@ -16,22 +16,24 @@ function Home()
         <div></div>
         <div className="TrendRow">
             <ul>
-                <li className="Trend_item"><img src={mangoes} alt="Mangoes" /></li>
-                <li className="Trend_item"><img src={plum} alt="Plum" /></li>
-                <li className="Trend_item"><img src={papaya} alt="Papaya" /></li>
-                <li className="Trend_item"><img src={cucumber} alt="Cucumber" /></li>
-                <li className="Trend_item"><img src={berry} alt="Berry" /></li>
+                <li className="Trend_item"><img src={mangoes} alt="Mangoes" />Mangoes</li>
+                <li className="Trend_item"><img src={plum} alt="Plum" />Plums</li>
+                <li className="Trend_item"><img src={papaya} alt="Papaya" />Papaya</li>
+                <li className="Trend_item"><img src={cucumber} alt="Cucumber" />Cucumber</li>
+                <li className="Trend_item"><img src={berry} alt="Berry" />Berries</li>
             </ul>
-            <ul className="TrendsNames">
+            {/* <ul className="TrendsNames">
             <li>Mangoes</li><li>Plums</li><li>Papaya</li><li>Cucumber</li><li>Berries</li>
-            </ul>
+            </ul> */}
         </div>
         </div>
         <div className="Recipe">Trending Recipes</div>
         <div className="RecipeList"><ul>
-        <li><iframe width="460" height="315" src="https://www.youtube.com/embed/RPGBMkN-_Ys" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
-        <li><iframe width="460" height="315" src="https://www.youtube.com/embed/Fz7iFleQyME" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
-        </ul></div>
+        {/* <li><iframe width="460" height="315" src="https://www.youtube.com/embed/RPGBMkN-_Ys" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li> */}
+        <li><iframe  src="https://www.youtube.com/embed/RPGBMkN-_Ys" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
+        {/* <li><iframe width="460" height="315" src="https://www.youtube.com/embed/RPGBMkN-_Ys" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li> */}
+        <li><iframe  src="https://www.youtube.com/embed/Fz7iFleQyME" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
+        </ul></div><br/><br/>
     </div>
     )
 }

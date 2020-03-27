@@ -18,8 +18,13 @@ const handleSubmit = (e,props) => {
             props.dispatch({type:"LOGIN",token:user.token})
             console.log(props)
             // props.handleLogin()
-            // props.history.push('/')
-        }})
+            props.history.push('/')
+        }
+        // else
+        // {
+        //     props.history.push('/signup')
+        // }
+    })
 }
 
 const Login = (props) => (
@@ -33,7 +38,7 @@ const Login = (props) => (
             <h4><a onClick="">Register as New User</a></h4>
             <hr></hr>
             <h4><a onClick="">Continue as Guest</a></h4>
-        </form>
+        </form><br/><br/><br/><br/>
     </div>
 );
 

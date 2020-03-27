@@ -1,8 +1,6 @@
 .Item img{
     height: 300px;
-    width: 61%;
-    margin-left: 280px;
-    border-radius: 25px;
+    width: 100%;
     }
     
     .Item h2{
@@ -26,13 +24,11 @@
     }
     
     .Item__nav{
-        margin-left: 280px;
-        width: 60%;
+        max-width:65%;
         border-style: solid ;
         color: #2E5069;
         display: flex;
         align-items: center;
-        padding: 0 0.5rem;
     }
     
     .Item__indiv a {
@@ -49,13 +45,13 @@
     }
     
     .Video_Lister{
-        margin-left: 50px;
+        /* margin-left: 50px; */
         margin-top: 50px;
         display: flex;
     }   
     
     .Video_Item{
-        padding-left:10px ;
+        /* padding-left:10px ; */
         padding-right:10px;
     }
     
@@ -68,7 +64,7 @@
     }
     
     .heart {
-        background-color:red;
+        background-color:	red;
         display: inline-block;
         height: 30px;
         margin: 0 10px;
@@ -76,6 +72,8 @@
         top: 0;
         transform: rotate(-45deg);
         width: 30px;
+        cursor: pointer;
+
       }
       
       .heart:before,

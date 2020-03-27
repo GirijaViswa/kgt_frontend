@@ -69,7 +69,7 @@ class NutritionFact extends React.Component
 }
 
 const mapStatetoProps = (state) => {
-    return{facts:state.fruits.single_fruit.nutritional_facts}
+    return{facts:state.vegs.single_veg.nutritional_facts}
 }
 
 export default connect(mapStatetoProps)(NutritionFact);

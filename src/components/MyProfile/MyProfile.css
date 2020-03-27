@@ -7,7 +7,42 @@ button{
 }
 
 .TContents td{
-    color: "#69841F";
+    color: #2E5069;
     font-weight: italic;
     font-Size:"20px"
+}
+
+.Profile h3{
+    font-family: Libre Franklin;
+    color: #F0681E;
+    font-size: 24px;
+}
+
+.Profile{
+    padding: 20px;
+    font-family: Libre Franklin;
+    color: #2E5069;
+    font-size: 24px;
+}
+
+.SinglePost{
+    max-width: 50%;
+    max-height: 10%;
+}
+
+.Posts{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px;
+}
+
+.Works{
+    display:grid;
+    padding: 0 auto;
+    grid-template-columns: 1fr 1fr;
+    border: 20pt;
+}
+
+.Profile hr{
+    max-width: 100%;
 }
