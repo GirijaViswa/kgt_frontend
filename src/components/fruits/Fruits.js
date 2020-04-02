@@ -38,7 +38,8 @@ class Fruits extends React.Component
                 </div>
                 : 
                 <div>
-                <img src={fruits_pic} alt="Fruits" />
+                <img src={fruits_pic} alt="Fruits" /><br/><br/>
+                <p>*Click on any one of the fruit to know more them</p>
                 <div className="Tilesgrid">
                 {this.props.fruits.allfruits.map(fruit => {
                     // console.log('fruit',fruit)

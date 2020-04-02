@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 class MyCollection extends React.Component
 {
     // state = {myVideos:[]}
-    componentWillMount()
+    componentDidMount()
     {
         const token = localStorage.getItem('token')
         if (token)
@@ -79,26 +79,37 @@ class MyCollection extends React.Component
     {
         return(
             <div className="List">
-                <center><h3>Your Amazing Collections</h3></center>
-                {this.props.user.myvideos ? 
+                <center><h3>Here are your amazing collections, start trying and keep posting them!</h3></center>
+                <p></p>
+                {this.props.user.myvideos ?
+                 <div>
+                { (this.props.user.myvideos.length > 0 ) ? 
                 // {this.state.myVideos ? 
                 <div> <ul>
-                    {/* <iframe width="400" height="300" src={this.state.myVideos[0]} frameborder="0"></iframe> */}
-                    {/* {this.state.myVideos} */}
 
                 {this.props.user.myvideos.map(video => {
                         console.log('video',video)
-                    return <div>{video.name} <br/><br/>
+                //     return <div>{video.name} <br/><br/>
+                //    <li> <iframe width="400" height="300" src={video.url} alt={video.name} frameborder="0"></iframe></li>
+                //    <li> <button onClick={()=>this.addToTry(video)}>Try this! </button>
+                //    <button onClick={()=>this.handleDelete(video)}>Remove from my collection</button></li>
+                // </div>
+                return <div>
+                {video ?
+                     <div>{video.name} <br/><br/>
                    <li> <iframe width="400" height="300" src={video.url} alt={video.name} frameborder="0"></iframe></li>
                    <li> <button onClick={()=>this.addToTry(video)}>Try this! </button>
                    <button onClick={()=>this.handleDelete(video)}>Remove from my collection</button></li>
+                </div>
+                :null}
                 </div>
                 }
                 
                                 
                 )}</ul></div>
-                : null} 
-                
+                : <h5><center>There are no videos to show up. Start adding videos to your collection.</center></h5>
+                } </div>
+                :null}
             </div>
         )
     }

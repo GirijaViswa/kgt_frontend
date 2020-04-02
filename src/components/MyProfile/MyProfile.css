@@ -1,15 +1,20 @@
-button{
+.Create{
     cursor: pointer;
     color: white;
     background-color:  #69841F;
     padding: 0.5rem;
-    font-size: 1.5rem;
+    font-size: 1rem;
 }
 
 .TContents td{
     color: #2E5069;
     font-weight: italic;
     font-Size:"20px"
+}
+.DropM{
+    font-family: Libre Franklin;
+    color: #69841F;
+    font-size: 24px;
 }
 
 .Profile h3{
@@ -25,24 +30,33 @@ button{
     font-size: 24px;
 }
 
+.EmptyContent h5{
+    font-family: Libre Franklin;
+    color: #2E5069;
+    font-size: 24px;
+}
+
 .SinglePost{
-    max-width: 50%;
-    max-height: 10%;
+    padding: 0 auto;
 }
 
 .Posts{
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    border: 1px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    /* background-color: rgb(245, 241, 241); */
+    grid-gap: 30px;
+    max-height: 60;
+    border:solid rgb(48, 93, 55);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding: 10 auto;
+    
+    /* grid-gap: 30px; */
 }
 
-.Works{
-    display:grid;
-    padding: 0 auto;
-    grid-template-columns: 1fr 1fr;
-    border: 20pt;
-}
-
-.Profile hr{
-    max-width: 100%;
+.NewPost{
+    max-height: 30%;
+    font-family: Libre Franklin;
+    border:solid rgb(48, 93, 55);
+   font-size: 24px;
 }

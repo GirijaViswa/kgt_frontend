@@ -28,9 +28,9 @@ const SignUp = (props) => (
             <input type="text" name="Email" placeholder="Email" /><br/><br/>
             <input type="password" name="Password" placeholder="Password"/><br/><br/>
             <input type="submit" value="Go" className="SignupSubmit"/><br/>
-            <h4><a onClick="">Already member</a></h4>
+            <h4><a onClick={()=>props.history.push('/login')}>Already member</a></h4>
             <hr></hr>
-            <h4><a onClick="">Continue as Guest</a></h4>
+            <h4><a onClick={()=>props.history.push('/')}>Continue as Guest</a></h4>
         </form><br/>
     </div>
 );

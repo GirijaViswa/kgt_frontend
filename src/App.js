@@ -25,43 +25,24 @@ const handleLogout = props => {
 function App(props) {
   return (
     <div>
+      <div className="PageContent">
       <Router>
         <div className="App">
-          <Link to="/" className="Links">
-            <Logo />
-          </Link>
-          <Link to="/fruits" className="Links">
-            Fruits
-          </Link>
-          <Link to="/vegetables" className="Links">
-            Vegetables
-          </Link>
+          <Link to="/" className="Links"><Logo /></Link>
+          <Link to="/fruits" className="Links">Fruits</Link>
+          <Link to="/vegetables" className="Links">Vegetables</Link>
           <div className="Spacer" />
           {localStorage.getItem("token") || props.user.loggenIn ? (
             <div>
-              <Link to="/mycollection" className="Links">
-                My Collections
-              </Link>
-              <Link to="/myprofile" className="Links">
-                My Profile
-              </Link>
+              <Link to="/mycollection" className="Links">My Collections</Link>
+              <Link to="/myprofile" className="Links"> My Profile</Link>
               {/* <Link to="/" className="Links" ><div  onClick={()=>handleLogout(props)}>LogOut</div></Link></div> */}
-              <Link
-                to="/"
-                className="Links"
-                onClick={() => handleLogout(props)}
-              >
-                LogOut
-              </Link>
+              <Link to="/" className="Links" onClick={() => handleLogout(props)} >LogOut</Link>
             </div>
           ) : (
             <div>
-              <Link to="/login" className="Links">
-                Login
-              </Link>
-              <Link to="/signup" className="Links">
-                SignUp
-              </Link>
+              <Link to="/login" className="Links">Login</Link>
+              <Link to="/signup" className="Links">SignUp</Link>
             </div>
           )}
 
@@ -79,13 +60,16 @@ function App(props) {
           <Route exact path="/" component={Home} />
         </Switch>
       </Router>
-      <div className="Footer">
+      </div>
+      {/* <div> */}
+      {/* <div className="Footer">
+      <footer >
         <center>
           Nothing great is created suddenly, any more than a bunch of grapes or
           a fig. If you tell me that you desire a fig. I answer you that there
           must be time. Let it first blossom, then bear fruit, then ripen.
-        </center>
-      </div>
+        </center></footer>
+      </div> */}
     </div>
   );
 }

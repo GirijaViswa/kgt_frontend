@@ -4,6 +4,7 @@ import SingleFruitGrow from './SingleFruitGrow';
 import NutritionFact from './NutritionFacts';
 import './SingleFruit.css'
 import {connect} from 'react-redux';
+import {BrowserRouter as Router,Route} from 'react-router-dom';
 
 class SingleFruit extends React.Component
 {
@@ -12,33 +13,33 @@ class SingleFruit extends React.Component
     componentDidMount()
     {
 // to fetch the nutritional facts of this fruit    -- part - 1 
-        // var fruit_name = this.props.fruit.active_fruit.tfvname
-        // var headers = {method:'GET',redirect:'follow'}
-        // var url="https://cors-anywhere.herokuapp.com/http://tropicalfruitandveg.com/api/tfvjsonapi.php?tfvitem="+fruit_name
+        var fruit_name = this.props.fruit.active_fruit.tfvname
+        var headers = {method:'GET',redirect:'follow'}
+        var url="https://cors-anywhere.herokuapp.com/http://tropicalfruitandveg.com/api/tfvjsonapi.php?tfvitem="+fruit_name
         
-        // // var url="https://cors-anywhere.herokuapp.com/http://tropicalfruitandveg.com/api/tfvjsonapi.php?tfvitem="+this.props.fruit.tfvname
+        // var url="https://cors-anywhere.herokuapp.com/http://tropicalfruitandveg.com/api/tfvjsonapi.php?tfvitem="+this.props.fruit.tfvname
        
-        // fetch(url, headers)
-        // .then(resp => resp.json())
-        // // .then(data => this.setState({info:data.results}))
-        // .then(data => this.props.dispatch({type:"FRUIT_INFO",info:data.results}))
-        // .catch(error => console.log('error', error));
+        fetch(url, headers)
+        .then(resp => resp.json())
+        // .then(data => this.setState({info:data.results}))
+        .then(data => this.props.dispatch({type:"FRUIT_INFO",info:data.results}))
+        .catch(error => console.log('error', error));
 
 // to fetch the nutritional facts of this fruit   --part - 2
-        // var myHeaders = new Headers();
-        // myHeaders.append("Content-Type", "application/json");
-        // // var ingr = "1 cup "+this.props.fruit.name
-        // var ingr = "1 cup "+this.props.fruit.active_fruit.tfvname
-        // var raw = JSON.stringify({"title":"Fresh","prep":"1.","yield":"About 1 servings","ingr":[ingr]});
-        // console.log(raw)
-        // var requestOptions = { method: 'POST', headers: myHeaders, body: raw, redirect: 'follow' };
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        // var ingr = "1 cup "+this.props.fruit.name
+        var ingr = "1 cup "+this.props.fruit.active_fruit.tfvname
+        var raw = JSON.stringify({"title":"Fresh","prep":"1.","yield":"About 1 servings","ingr":[ingr]});
+        console.log(raw)
+        var requestOptions = { method: 'POST', headers: myHeaders, body: raw, redirect: 'follow' };
 
-        // fetch("https://api.edamam.com/api/nutrition-details?app_id=a4cd23d2&app_key=5bb8fd71794f47b4da95bab16d9d46f7", requestOptions)
-        // // fetch("https://api.edamam.com/api/nutrition-details?app_id=0d480d4b&app_key=6428fff964ea8c0ed610bca08120c4fe", requestOptions)
-        // .then(response => response.json())
-        // // .then(result => this.setState(prevState =>({...prevState,nutritional_facts:result})))
-        // .then(result => this.props.dispatch({type:"FRUIT_NUTRITION",nutritional_facts:result}))
-        // .catch(error => console.log('error', error));
+        fetch("https://api.edamam.com/api/nutrition-details?app_id=a4cd23d2&app_key=5bb8fd71794f47b4da95bab16d9d46f7", requestOptions)
+        // fetch("https://api.edamam.com/api/nutrition-details?app_id=0d480d4b&app_key=6428fff964ea8c0ed610bca08120c4fe", requestOptions)
+        .then(response => response.json())
+        // .then(result => this.setState(prevState =>({...prevState,nutritional_facts:result})))
+        .then(result => this.props.dispatch({type:"FRUIT_NUTRITION",nutritional_facts:result}))
+        .catch(error => console.log('error', error));
 
 // to fetch the videos of this fruit
         var recipe_videos = []; 
@@ -93,7 +94,7 @@ class SingleFruit extends React.Component
         const fruit = this.props.fruit.active_fruit
         const fruit_info = this.props.fruit.single_fruit.info
         return(
-            <div className="Item"> 
+            <div className="Item"> <Router>
                 {/* <img src={this.props.fruit.img} alt={this.props.fruit.name}/>
                 <h2>{this.props.fruit.name}</h2> */}
                 <img src={fruit.img} alt={fruit.name}/>
@@ -106,7 +107,8 @@ class SingleFruit extends React.Component
                 </nav></center>
 
                 
-                {this.props.fruit.single_fruit.fruit_nutrition ? <NutritionFact /> : null}
+                {this.props.fruit.single_fruit.fruit_nutrition ? <Route component={NutritionFact} /> : null}
+                {/* {this.props.fruit.single_fruit.fruit_nutrition ? <NutritionFact /> : null} */}
                 
                  {/* {this.state.fruit_nutrition ? <NutritionFact /> : null} */}
                 {/* {this.state.fruit_nutrition ? <NutritionFact facts={this.state.nutritional_facts}/> : null} */}
@@ -116,10 +118,12 @@ class SingleFruit extends React.Component
                 <div>
                     {this.props.fruit.single_fruit.fruit_taste ?
                     // {this.state.fruit_taste ?
-                    <SingleFruitTaste />
+                    // <SingleFruitTaste />
+                    <Route component={SingleFruitTaste} />
                     // <SingleFruitTaste fruit_recipe={this.state.fruit_recipe}/>
                     :
-                    <SingleFruitGrow />
+                    // <SingleFruitGrow />
+                    <Route component={SingleFruitGrow} />
                     // <SingleFruitGrow fruit_garden={this.state.fruit_garden}/>
                     }
                 </div>
@@ -168,7 +172,7 @@ class SingleFruit extends React.Component
                  
                  {/*Back Button */}
                  <br/><br/><center><button onClick={()=>{this.props.dispatch({type:"BACK_TO_ALL_FRUITS"})}}>Check out other fruits here!</button></center><br/><br/> 
-                </div> 
+                 </Router></div> 
         )
     }
 }

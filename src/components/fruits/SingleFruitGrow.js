@@ -1,6 +1,9 @@
 import React from "react";
 import "./SingleFruit.css";
 import { connect } from "react-redux";
+import Login from '../Login/Login';
+
+import {BrowserRouter as Router,Redirect,withRouter,Route} from 'react-router-dom';
 
 //List all the gardening videos available for this fruit
 
@@ -24,40 +27,43 @@ import { connect } from "react-redux";
 //         }})
 // }
 
-const addToCollection = video => {
+const addToCollection = (video,props) => {
   if (localStorage.getItem("token")) {
     const token = localStorage.getItem("token");
     var data = { video_id: video.id, user_id: localStorage.getItem("user_id") };
-    var headers = {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: token
-    };
-    fetch(
-      `http://localhost:3000/users/${localStorage.getItem(
-        "user_id"
-      )}/mycollections`,
-      { method: "POST", headers: headers, body: JSON.stringify(data) }
-    )
+    var headers = {"Content-Type": "application/json",Accept: "application/json",Authorization: token};
+    fetch(`http://localhost:3000/users/${localStorage.getItem("user_id")}/mycollections`,{ method: "POST", headers: headers, body: JSON.stringify(data) })
       .then(resp => resp.json())
       .then(data => {
-        if (data.status === "ok") {
+        if (data.status === "ok") 
+        {
           alert(data.msg);
-          this.props.dispatch({ type: "ADD_VIDEOS", video: data.mycollection });
+          props.dispatch({ type: "ADD_VIDEOS", posts: data.mycollection });
+          // this.props.dispatch({ type: "ADD_VIDEOS", posts: data.mycollection });
         }
       })
-      .catch(error => {
-        console.error("Error", error);
-      });
-  } else {
-    this.props.history.push("/login");
+      .catch(error => 
+        {
+          console.error("Error", error);
+        });
+  } 
+  else 
+  {
+    // return <Route> <Redirect to="/login"/></Route>
+    // props.dispatch({type:"PUSH_LOGIN"})
+    alert("Kindly Login/Signup to save this video to your collection.");
+    props.history.push("/login");
+    // return <Route path="/login" component={Login}/>
   }
 };
 
 const SingleFruitGrow = props => (
+<div>
+  <p>*Checkout how to grow them in your backyard!</p>
   <div className="Video_Lister">
     <br />
     <br />
+    
     {props.fruit.single_fruit.garden_videos.map(video => {
       //    { props.fruit_garden.map(video => {
       return (
@@ -73,14 +79,14 @@ const SingleFruitGrow = props => (
           <div
             class="heart"
             id={video.id}
-            onClick={() => addToCollection(video)}
+            onClick={() => addToCollection(video,props)}
           ></div>
           <br />
           <br />
         </div>
       );
     })}
-  </div>
+  </div></div>
 );
 
 const mapStatetoProps = state => ({ fruit: state.fruits, user: state.user });

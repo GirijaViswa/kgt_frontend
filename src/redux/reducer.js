@@ -2,144 +2,54 @@ const reducer = (oldState, action) => {
   console.log("oldState", oldState);
   console.log("action", action);
 
-  switch (action.type) {
-    //User actions
+  switch (action.type) 
+  {
+//User actions
     case "LOGIN":
       return { ...oldState, user: { loggedIn: true, token: action.token } };
 
     case "LOGOUT":
-      return {
-        ...oldState,
-        user: { loggedIn: false, token: null, myprofile: [], myvideos: [] }
-      };
+      return {...oldState,user: { loggedIn: false, token: null, myprofile: [], myvideos: [] }};
 
     case "SET_PROFILE":
-      return {
-        ...oldState,
-        user: {
-          ...oldState.user,
-          myprofile: action.myprofile,
-          activity: action.activity
-        }
-      };
+      return {...oldState,user: {...oldState.user,myprofile: action.myprofile,activity: action.activity}};
+
     case "ADD_POST":
-      return {
-        ...oldState,
-        user: {
-          ...oldState.user,
-          activity: { ...oldState.user.activity, posts: action.posts }
-        }
-      };
+      return {...oldState,user: {...oldState.user,activity: { ...oldState.user.activity, posts: action.posts }}};
 
     case "GET_VIDEOS":
-      return {
-        ...oldState,
-        user: { ...oldState.user, myvideos: action.myvideos }
-      };
+      return {...oldState,user: { ...oldState.user, myvideos: action.myvideos }};
 
     case "ADD_VIDEOS":
-      return {
-        ...oldState,
-        user: {
-          ...oldState.user,
-          myvideos: [...oldState.user.myvideos, action.video]
-        }
-      };
+      return {...oldState,
+        user: {...oldState.user,myvideos: [...oldState.user.myvideos, action.video] } };
 
     case "REMOVE_VIDEOS":
       var old_videos = oldState.user.myvideos;
-      var newVideoList = old_videos.filter(
-        video => video.id !== action.videoId
-      );
-      return {
-        ...oldState,
-        user: { ...oldState.user, myvideos: newVideoList }
-      };
+      var newVideoList = old_videos.filter(video => video.id !== action.videoId);
+      return {...oldState,user: { ...oldState.user, myvideos: newVideoList }};
 
-    //Fruits actions
+//Fruits actions
     case "ALL_FRUITS":
-      return {
-        ...oldState,
-        fruits: { ...oldState.fruits, allfruits: action.allfruits }
-      };
+      return {...oldState,fruits: { ...oldState.fruits, allfruits: action.allfruits }};
 
     case "BACK_TO_ALL_FRUITS":
-      return {
-        ...oldState,
-        fruits: {
-          ...oldState.fruits,
-          show_fruit: false,
-          active_fruit: null,
-          single_fruit: {
-            ...oldState.fruits.single_fruit,
-            fruit_taste: false,
-            fruit_grow: false,
-            desc: false,
-            fruit_nutrition: false,
-            recipe_videos: [],
-            garden_videos: []
-          }
-        }
-      };
+      return {...oldState,fruits: {...oldState.fruits,show_fruit: false,active_fruit: null,single_fruit: {...oldState.fruits.single_fruit,fruit_taste: false,fruit_grow: false,desc: false,fruit_nutrition: false,recipe_videos: [],garden_videos: [] }} };
 
     case "SHOW_FRUIT":
-      return {
-        ...oldState,
-        fruits: {
-          ...oldState.fruits,
-          show_fruit: !oldState.fruits.show_fruit,
-          active_fruit: action.showFruit
-        }
-      };
+      return {...oldState,fruits: {...oldState.fruits,show_fruit: !oldState.fruits.show_fruit,active_fruit: action.showFruit}};
 
     case "FRUIT_INFO":
-      return {
-        ...oldState,
-        fruits: {
-          ...oldState.fruits,
-          single_fruit: { ...oldState.fruits.single_fruit, info: action.info }
-        }
-      };
+      return {...oldState,fruits: {...oldState.fruits,single_fruit: { ...oldState.fruits.single_fruit, info: action.info }}};
 
     case "FRUIT_NUTRITION":
-      return {
-        ...oldState,
-        fruits: {
-          ...oldState.fruits,
-          single_fruit: {
-            ...oldState.fruits.single_fruit,
-            nutritional_facts: action.nutritional_facts
-          }
-        }
-      };
+      return {...oldState,fruits: {...oldState.fruits,single_fruit: {...oldState.fruits.single_fruit,nutritional_facts: action.nutritional_facts}}};
 
     case "FRUITS_VIDEOS":
-      return {
-        ...oldState,
-        fruits: {
-          ...oldState.fruits,
-          single_fruit: {
-            ...oldState.fruits.single_fruit,
-            recipe_videos: action.fruit_recipe,
-            garden_videos: action.fruit_garden
-          }
-        }
-      };
+      return {...oldState,fruits: {...oldState.fruits,single_fruit: {...oldState.fruits.single_fruit,recipe_videos: action.fruit_recipe,garden_videos: action.fruit_garden}}};
 
     case "SHOW_FRUIT_DESC":
-      return {
-        ...oldState,
-        fruits: {
-          ...oldState.fruits,
-          single_fruit: {
-            ...oldState.fruits.single_fruit,
-            fruit_taste: false,
-            fruit_grow: false,
-            desc: !oldState.fruits.single_fruit.desc,
-            fruit_nutrition: false
-          }
-        }
-      };
+      return {...oldState,fruits: {...oldState.fruits,single_fruit: {...oldState.fruits.single_fruit,fruit_taste: false,fruit_grow: false,desc: !oldState.fruits.single_fruit.desc,fruit_nutrition: false}}};
 
     case "SHOW_FRUIT_TASTE":
       return {
@@ -185,6 +95,18 @@ const reducer = (oldState, action) => {
           }
         }
       };
+
+      case "PUSH_LOGIN":
+      return {user:{loggedIn:false,token:null,myprofile:[],myvideos:[],activity:null},
+
+      fruits:
+          {allfruits:[],show_fruit:false,active_fruit:null,
+          single_fruit:{info:[],fruit_taste:false,fruit_grow:false,desc:false,fruit_nutrition:false,nutritional_facts:null,recipe_videos:[],garden_videos:[]}},
+  
+      vegs:
+          {allvegs:[],show_veg:false,active_veg:null,
+          single_veg:{info:[],veg_taste:false,veg_grow:false,desc:false,veg_nutrition:false,nutritional_facts:null,recipe_videos:[],garden_videos:[]}}}
+
 
     //Vegetables actions
 

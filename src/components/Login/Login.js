@@ -1,6 +1,8 @@
 import React from 'react'
 import './Login.css';
 import {connect} from 'react-redux';
+import {BrowserRouter as Router,Route,Link,Switch} from 'react-router-dom';
+import SignUp from '../SignUp/SignUp';
 
 const handleSubmit = (e,props) => {
     e.preventDefault();
@@ -20,25 +22,27 @@ const handleSubmit = (e,props) => {
             // props.handleLogin()
             props.history.push('/')
         }
-        // else
-        // {
-        //     props.history.push('/signup')
-        // }
+        else
+        {
+            props.history.push('/signup')
+        }
     })
 }
 
 const Login = (props) => (
     <div className="LoginForm">
-        
+        <Router>
         <form onSubmit={(e)=>handleSubmit(e,props)}>
             <h2>Login</h2>
             <input type="text" name="Email" placeholder="Email" /><br/><br/>
             <input type="password" name="Password" placeholder="Password"/><br/><br/>
             <input type="submit" value="Login" className="LoginSubmit"/><br/>
-            <h4><a onClick="">Register as New User</a></h4>
+            <h4><a onClick={()=>props.history.push('/signup')}>Register as New User</a></h4>
             <hr></hr>
-            <h4><a onClick="">Continue as Guest</a></h4>
-        </form><br/><br/><br/><br/>
+            <h4><a onClick={()=>props.history.push('/')}>Continue as Guest</a></h4>
+            
+        </form>
+        <br/><br/><br/><br/></Router>
     </div>
 );
 

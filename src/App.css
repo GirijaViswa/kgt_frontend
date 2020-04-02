@@ -29,7 +29,7 @@
 
 .Footer{
   
-  /* position: absolute; */
+  position: absolute;
   bottom: 0;
   background-color:#2E5069;
   width: 100%;
@@ -38,5 +38,20 @@
   color: #F0681E;
   font-family:Libre Franklin ;
   font-size: 24px;
+}
+
+.footer {
+  clear: both;
+  height: 10%;
+  margin-top: -50px;
+  color: #F0681E;
+  background-color:#2E5069;
+  font-family:Libre Franklin ;
+  font-size: 24px;
+
+}
+
+.PageContent{
+  min-height: 90%;
 }
 

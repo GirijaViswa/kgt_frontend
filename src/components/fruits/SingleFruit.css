@@ -94,3 +94,8 @@ button{
     left: 15px;
     top: 0;
   }
+  p{
+    font-family: Libre Franklin;
+    font-size: 22px;
+    color:#69841F;
+}

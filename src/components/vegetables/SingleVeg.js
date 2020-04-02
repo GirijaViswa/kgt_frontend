@@ -4,6 +4,8 @@ import SingleVegGrow from './SingleVegGrow';
 import NutritionFact from './NutritionFacts.js';
 import './SingleVeg.css'
 import {connect} from 'react-redux';
+import {BrowserRouter as Router,Route} from 'react-router-dom';
+
 
 class SingleVeg extends React.Component
 {
@@ -11,27 +13,27 @@ class SingleVeg extends React.Component
     componentDidMount()
     {
 // to fetch the nutritional facts of this veg    -- part - 1  
-        // var veg_name = this.props.veg.active_veg.tfvname
-        // var headers = {method:'GET',redirect:'follow'}
-        // var url="https://cors-anywhere.herokuapp.com/http://tropicalfruitandveg.com/api/tfvjsonapi.php?tfvitem="+veg_name
-        // fetch(url, headers)
-        // .then(resp => resp.json())
-        // .then(data => this.props.dispatch({type:"VEG_INFO",info:data.results}))
-        // .catch(error => console.log('error', error));
+        var veg_name = this.props.veg.active_veg.tfvname
+        var headers = {method:'GET',redirect:'follow'}
+        var url="https://cors-anywhere.herokuapp.com/http://tropicalfruitandveg.com/api/tfvjsonapi.php?tfvitem="+veg_name
+        fetch(url, headers)
+        .then(resp => resp.json())
+        .then(data => this.props.dispatch({type:"VEG_INFO",info:data.results}))
+        .catch(error => console.log('error', error));
 
 // to fetch the nutritional facts of this veg   --part - 2
-        // var myHeaders = new Headers();
-        // myHeaders.append("Content-Type", "application/json");
-        // var ingr = "1 cup "+this.props.veg.active_veg.name
-        // var raw = JSON.stringify({"title":"Fresh","prep":"1.","yield":"About 1 servings","ingr":[ingr]});
-        // console.log(raw)
-        // var requestOptions = { method: 'POST', headers: myHeaders, body: raw, redirect: 'follow',mode: 'cors'};
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var ingr = "1 cup "+this.props.veg.active_veg.name
+        var raw = JSON.stringify({"title":"Fresh","prep":"1.","yield":"About 1 servings","ingr":[ingr]});
+        console.log(raw)
+        var requestOptions = { method: 'POST', headers: myHeaders, body: raw, redirect: 'follow',mode: 'cors'};
 
-        // fetch("https://api.edamam.com/api/nutrition-details?app_id=a4cd23d2&app_key=5bb8fd71794f47b4da95bab16d9d46f7", requestOptions)
-        // // fetch("https://api.edamam.com/api/nutrition-details?app_id=0d480d4b&app_key=6428fff964ea8c0ed610bca08120c4fe", requestOptions)
-        // .then(response => response.json())
-        // .then(result => this.props.dispatch({type:"VEG_NUTRITION",nutritional_facts:result}))
-        // .catch(error => console.log('error', error));
+        fetch("https://api.edamam.com/api/nutrition-details?app_id=a4cd23d2&app_key=5bb8fd71794f47b4da95bab16d9d46f7", requestOptions)
+        // fetch("https://api.edamam.com/api/nutrition-details?app_id=0d480d4b&app_key=6428fff964ea8c0ed610bca08120c4fe", requestOptions)
+        .then(response => response.json())
+        .then(result => this.props.dispatch({type:"VEG_NUTRITION",nutritional_facts:result}))
+        .catch(error => console.log('error', error));
 
 // to fetch the videos of this veg
         var recipe_videos = [];
@@ -80,7 +82,7 @@ class SingleVeg extends React.Component
         const veg_info = this.props.veg.single_veg.info
         
         return(
-            <div className="Item"> 
+            <div className="Item"> <Router>
                 <img src={veg.img} alt={veg.name}/>
                 <h2>{veg.name}</h2>
                 <center><nav className="Item__nav">
@@ -94,9 +96,13 @@ class SingleVeg extends React.Component
                 {this.props.veg.single_veg.veg_grow || this.props.veg.single_veg.veg_taste ?
                 <div>
                     {this.props.veg.single_veg.veg_taste ?
-                    <SingleVegTaste />
+                    // <SingleVegTaste />
+                    <Route component={SingleVegTaste} />
+
                     :
-                    <SingleVegGrow />
+                    // <SingleVegGrow />
+                    <Route component={SingleVegGrow} />
+
                 }
                 </div>
                 : null}
@@ -126,7 +132,7 @@ class SingleVeg extends React.Component
                  : null}</div>
                  {/*Back Button */}
                  <br/><br/><center><button onClick={()=>{this.props.dispatch({type:"BACK_TO_ALL_VEGS"})}}>Check out other Vegetables here!</button></center><br/><br/>
-                </div> 
+                 </Router></div> 
         )
     }
 }

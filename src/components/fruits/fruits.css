@@ -23,4 +23,10 @@ width: 100%;
 .Tile:hover {
     box-shadow: 0 8px 16px 0 black;
   }
+
+  p{
+      font-family: Libre Franklin;
+      font-size: 22px;
+      color:#69841F;
+  }
   

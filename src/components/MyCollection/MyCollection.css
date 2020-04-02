@@ -25,6 +25,13 @@
 
 }
 
+.List h5{
+    font-family: Libre Franklin;
+    color: #2E5069;
+    font-size: 24px;
+
+}
+
 .List button{
     max-width: 60%;
     background-color: #2E5069;
